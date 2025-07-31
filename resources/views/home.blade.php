@@ -96,9 +96,96 @@
         </div>
     </article>
 
-    .
 
+    <div class="bg-light">
+        <div class="container py-5">
+            <h2 class="mb-4 text-center">Alur Pendaftaran</h2>
+            <p class="text-center text-muted mb-5">
+                Ikuti langkah-langkah sederhana untuk mendaftar sebagai calon anggota OSIS
+            </p>
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 text-center py-5">
+                        <div class="mb-3">
+                            <span
+                                class="d-inline-flex align-items-center justify-content-center rounded-circle bg-black text-white fs-3"
+                                style="width: 48px; height: 48px;">
+                                1
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Daftar</h5>
+                            <p class="card-text text-muted">Isi formulir pendaftaran dengan data diri dan motivasi</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 text-center py-5">
+                        <div class="mb-3">
+                            <span
+                                class="d-inline-flex align-items-center justify-content-center rounded-circle bg-black text-white fs-3"
+                                style="width: 48px; height: 48px;">
+                                2
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Validasi</h5>
+                            <p class="card-text text-muted">Sistem memvalidasi NISN dengan database sekolah</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 text-center py-5">
+                        <div class="mb-3">
+                            <span
+                                class="d-inline-flex align-items-center justify-content-center rounded-circle bg-black text-white fs-3"
+                                style="width: 48px; height: 48px;">
+                                3
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Seleksi</h5>
+                            <p class="card-text text-muted">Guru melakukan proses seleksi</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="card h-100 text-center py-5">
+                        <div class="mb-3">
+                            <span
+                                class="d-inline-flex align-items-center justify-content-center rounded-circle bg-black text-white fs-3"
+                                style="width: 48px; height: 48px;">
+                                4
+                            </span>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Pengumuman</h5>
+                            <p class="card-text text-muted">Hasil seleksi diumumkan pada tanggal yang ditentukan</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <div class="bg-dark">
+        <div class="container py-5">
+            <h2 class="mb-4 text-center text-white">Hubungi Kami</h2>
+            <p class="text-center text-muted mb-5">Jika ada pertanyaan atau butuh bantuan, silakan hubungi kami melalui
+                email atau media sosial.</p>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <h5 class="text-white">Email</h5>
+                    <p class="text-muted">info@osis.com</p>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <h5 class="text-white">Media Sosial</h5>
+                    <p class="text-muted">Instagram: @osis</p>
+                    <p class="text-muted">Facebook: OSIS</p>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
