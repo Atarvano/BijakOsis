@@ -51,6 +51,54 @@
             </div>
         </div>
     </div>
+
+    <article class="container my-5">
+        <h2 class="mb-4 text-center">Mengapa Memilih BijakOSIS?</h2>
+        <p class="text-center text-muted mb-5">Platform modern yang memudahkan proses pendaftaran dan seleksi anggota
+            OSIS<br>dengan sistem yang transparan dan efisien.</p>
+        <div class="row">
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm text-center py-5">
+                    <div class="mb-3">
+                        <i class="bi bi-clock-history display-1 text-muted"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Pendaftaran Mudah</h5>
+                        <p class="card-text text-muted">Proses pendaftaran yang sederhana dan cepat dengan validasi data
+                            siswa otomatis.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm text-center py-5">
+                    <div class="mb-3">
+                        <i class="bi bi-funnel display-1 text-muted"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Seleksi Otomatis</h5>
+                        <p class="card-text text-muted">Sistem filtering berdasarkan nilai akademik, kehadiran, dan poin
+                            perilaku.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card h-100 shadow-sm text-center py-5">
+                    <div class="mb-3">
+                        <i class="bi bi-eye display-1 text-muted"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Transparansi</h5>
+                        <p class="card-text text-muted">Proses seleksi yang transparan dengan pengumuman hasil di hari
+                            yang telah ditentukan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    .
+
+
 </body>
 
 </html>
