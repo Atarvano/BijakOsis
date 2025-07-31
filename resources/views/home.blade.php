@@ -170,19 +170,12 @@
 
     <div class="bg-dark">
         <div class="container py-5">
-            <h2 class="mb-4 text-center text-white">Hubungi Kami</h2>
-            <p class="text-center text-muted mb-5">Jika ada pertanyaan atau butuh bantuan, silakan hubungi kami melalui
-                email atau media sosial.</p>
-            <div class="row">
-                <div class="col-md-6 mb-4">
-                    <h5 class="text-white">Email</h5>
-                    <p class="text-muted">info@osis.com</p>
-                </div>
-                <div class="col-md-6 mb-4">
-                    <h5 class="text-white">Media Sosial</h5>
-                    <p class="text-muted">Instagram: @osis</p>
-                    <p class="text-muted">Facebook: OSIS</p>
-                </div>
+            <h2 class="mb-3 text-center text-white">Siap Bergabung dengan OSIS?</h2>
+            <p class="text-center text-white mb-3">Jangan lewatkan kesempatan untuk menjadi bagian dari perubahan
+                positif di sekolah. <br>Daftarkan diri Anda sekarang!</p>
+            <div class="text-center">
+                <a href="#" class="btn btn-light btn-lg me-2 mb-2 mb
+                -lg-0">Mulai Pendaftaran</a>
             </div>
         </div>
     </div>
