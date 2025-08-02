@@ -179,6 +179,12 @@
             </div>
         </div>
     </div>
+
+    <footer class="bg-light py-4">
+        <div class="container text-center">
+            <p class="mb-0 text-muted">&copy; 2023 BijakOSIS. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 
 </html>
