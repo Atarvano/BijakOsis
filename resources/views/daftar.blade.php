@@ -59,34 +59,35 @@
             </div>
         </div>
 
-        <div class="row justify-content-center mb-5">
-            <div class="col-md-3 mb-4">
-                <div class="card h-100 text-center p-4 shadow-sm">
-                    <div class="mb-3">
-                        <i class="bi bi-funnel display-5 text-muted"></i>
-                    </div>
-                    <h6 class="fw-bold">Proses Seleksi</h6>
-                    <p class="text-muted">Seleksi berdasarkan nilai, kehadiran, dan poin perilaku, divalidasi dengan
-                        database sekolah</p>
+    </div>
+
+    <div class="px-5 row justify-content-center mb-5">
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 text-center p-4 shadow-sm">
+                <div class="mb-3">
+                    <i class="bi bi-funnel display-5 text-muted"></i>
                 </div>
+                <h6 class="fw-bold">Proses Seleksi</h6>
+                <p class="text-muted">Seleksi berdasarkan nilai, kehadiran, dan poin perilaku, divalidasi dengan
+                    database sekolah</p>
             </div>
-            <div class="col-md-3 mb-4">
-                <div class="card h-100 text-center p-4 shadow-sm">
-                    <div class="mb-3">
-                        <i class="bi bi-megaphone display-5 text-muted"></i>
-                    </div>
-                    <h6 class="fw-bold">Pengumuman</h6>
-                    <p class="text-muted">Hasil seleksi akan diumumkan pada tanggal yang telah ditentukan</p>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 text-center p-4 shadow-sm">
+                <div class="mb-3">
+                    <i class="bi bi-megaphone display-5 text-muted"></i>
                 </div>
+                <h6 class="fw-bold">Pengumuman</h6>
+                <p class="text-muted">Hasil seleksi akan diumumkan pada tanggal yang telah ditentukan</p>
             </div>
-            <div class="col-md-3 mb-4">
-                <div class="card h-100 text-center p-4 shadow-sm">
-                    <div class="mb-3">
-                        <i class="bi bi-people display-5 text-muted"></i>
-                    </div>
-                    <h6 class="fw-bold">Kontribusi</h6>
-                    <p class="text-muted">Berkontribusi aktif dalam kegiatan OSIS dan pengembangan siswa</p>
+        </div>
+        <div class="col-md-3 mb-4">
+            <div class="card h-100 text-center p-4 shadow-sm">
+                <div class="mb-3">
+                    <i class="bi bi-people display-5 text-muted"></i>
                 </div>
+                <h6 class="fw-bold">Kontribusi</h6>
+                <p class="text-muted">Berkontribusi aktif dalam kegiatan OSIS dan pengembangan siswa</p>
             </div>
         </div>
     </div>
