@@ -9,3 +9,7 @@ Route::get('/', function () {
 Route::get('/daftar', function () {
     return view('daftar');
 });
+
+Route::get('/dashboard', function () {
+    return view('dashboardsiswa');
+});
