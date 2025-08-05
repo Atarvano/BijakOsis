@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    @include('component.header')
+    @include('components.header')
 
 
     <div class="bg-light py-5">
@@ -162,7 +162,7 @@
     </div>
 
 
-    @include('component.footer')
+    @include('components.footer')
 </body>
 
 </html>

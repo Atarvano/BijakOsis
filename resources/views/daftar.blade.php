@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    @include('component.header')
+    @include('components.header')
 
     <div class="container py-5">
         <div class="row justify-content-center">
@@ -92,7 +92,7 @@
         </div>
     </div>
 
-    @include('component.footer')
+    @include('components.footer')
 </body>
 
 </html>
