@@ -10,10 +10,10 @@ class pendaftaranosis extends Model
 
     protected $fillable = [
         'nama',
-        'kelas',
-        'jurusan',
+        'nisn',
+        'kelas_id',
         'no_hp',
-        'alamat',
+        'motivasi',
     ];
 
     protected $primaryKey = 'id';
