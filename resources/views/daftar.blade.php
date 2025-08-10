@@ -11,7 +11,7 @@
 <body>
     @include('components.header')
 
-    <div class="container py-5">
+    <div class="container-fluid py-5">
         <div class="row justify-content-center">
             <div class="col-md-7 col-lg-6">
                 <div class="card shadow-sm p-4 mb-5 bg-white rounded">
@@ -30,11 +30,11 @@
                         </div>
                         <div class="mb-3">
                             <label for="kelas" class="form-label">Kelas</label>
-                            <select class="form-select" id="kelas">
+                            <select class="form-select" id="kelas" name="kelas">
                                 <option selected disabled>Pilih kelas Anda</option>
-                                <option>X</option>
-                                <option>XI</option>
-                                <option>XII</option>
+                                @foreach($kelas as $k)
+                                    <option>{{ $k }}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="mb-3">

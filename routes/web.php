@@ -1,15 +1,15 @@
 <?php
 
+use App\Http\Controllers\pendaftaran;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/daftar', function () {
-    return view('daftar');
-});
+Route::get('/daftar', [pendaftaran::class, 'index']);
 
 Route::get('/dashboard', function () {
-    return view('dashboardsiswa');
+    return view('dashboardsiswa', ['nama' => 'John Doe', 'kelas' => '10A']);
 });
+
