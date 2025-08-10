@@ -8,6 +8,7 @@ Route::get('/', function () {
 });
 
 Route::get('/daftar', [pendaftaran::class, 'index']);
+Route::post('/daftar', [pendaftaran::class, 'store']);
 
 Route::get('/dashboard', function () {
     return view('dashboardsiswa', ['nama' => 'John Doe', 'kelas' => '10A']);

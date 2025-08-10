@@ -18,33 +18,56 @@
                     <h2 class="text-center mb-2">Pendaftaran Siswa OSIS</h2>
                     <p class="text-center text-muted mb-4">Daftarkan diri Anda untuk bergabung dengan OSIS dan
                         berkontribusi untuk sekolah</p>
-                    <form>
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+                    @if (session('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
+                    <form method="POST" action="{{ url('/daftar') }}">
+                        @csrf
                         <div class="mb-3">
                             <label for="nama" class="form-label">Nama Lengkap</label>
-                            <input type="text" class="form-control" id="nama" placeholder="Masukkan nama lengkap Anda">
+                            <input type="text" class="form-control" id="nama" name="nama"
+                                placeholder="Masukkan nama lengkap Anda">
                         </div>
                         <div class="mb-3">
                             <label for="nisn" class="form-label">NISN (Nomor Induk Siswa Nasional)</label>
-                            <input type="text" class="form-control" id="nisn" placeholder="Masukkan NISN Anda">
+                            <input type="text" class="form-control" id="nisn" name="nisn"
+                                placeholder="Masukkan NISN Anda">
                             <small class="text-muted">NISN akan divalidasi dengan database sekolah</small>
+                        </div>
+                        <div class="mb-3">
+                            <label for="no_hp" class="form-label">No HP</label>
+                            <input type="text" class="form-control" id="no_hp" name="no_hp"
+                                placeholder="Masukkan nomor HP Anda">
                         </div>
                         <div class="mb-3">
                             <label for="kelas" class="form-label">Kelas</label>
                             <select class="form-select" id="kelas" name="kelas">
                                 <option selected disabled>Pilih kelas Anda</option>
                                 @foreach($kelas as $k)
-                                    <option>{{ $k }}</option>
+                                    <option value="{{ $k->id }}">{{ $k->nama }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mb-3">
                             <label for="motivasi" class="form-label">Motivasi Bergabung dengan OSIS</label>
-                            <textarea class="form-control" id="motivasi" rows="4"
+                            <textarea class="form-control" id="motivasi" name="motivasi" rows="4"
                                 placeholder="Jelaskan motivasi dan alasan Anda ingin bergabung dengan OSIS. Ceritakan kontribusi apa yang dapat Anda berikan untuk sekolah dan sesama siswa."></textarea>
                             <small class="text-muted">Minimal 100 karakter</small>
                         </div>
                         <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" id="syarat">
+                            <input class="form-check-input" type="checkbox" id="syarat" name="syarat">
                             <label class="form-check-label" for="syarat">
                                 Saya menyetujui <a href="#" class="text-dark text-decoration-underline">syarat dan
                                     ketentuan</a> yang berlaku dan berkomitmen untuk menjalankan tugas OSIS dengan baik
