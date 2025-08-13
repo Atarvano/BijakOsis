@@ -4,7 +4,7 @@
             <div class="col-md-3 mb-3 mb-md-0">
                 <div class="d-flex align-items-center mb-2">
                     <i class="bi bi-mortarboard-fill fs-3 me-2"></i>
-                    <span class="fw-bold fs-5">BijakOSIS</span>
+                    <a class="fw-bold fs-5" href="/">BijakOSIS</a>
                 </div>
                 <p class="text-white-50 mb-0">Platform digital untuk pendaftaran dan seleksi anggota OSIS yang
                     modern dan efisien.</p>
