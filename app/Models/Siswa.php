@@ -4,18 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class siswasekolah extends Model
+class Siswa extends Model
 {
     protected $table = 'siswa_sekolah';
+    protected $primaryKey = 'id'; 
+    public $timestamps = false; 
 
     protected $fillable = [
-        'nama',
         'nisn',
-        'kelas_id',
-        'nilai_siswa',
-        'motivasi',
+        'nama',
+        'no_hp',
+        'alamat',
+        'kelas_id'
     ];
-
-    protected $primaryKey = 'id';
-
 }
+
