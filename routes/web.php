@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\pendaftaran;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginSiswaController;
+use App\Http\Controllers\LoginPendaftaranController;
 
 Route::get('/', function () {
     return view('home');
@@ -11,11 +11,11 @@ Route::get('/', function () {
 Route::get('/daftar', [pendaftaran::class, 'index']);
 Route::post('/daftar', [pendaftaran::class, 'store']);
 
-Route::get('/dashboard', function () {
-    return view('dashboardsiswa', ['nama' => 'John Doe', 'kelas' => '10A']);
+Route::middleware('authos')->group(function () {
+    Route::get('/dashboard', [LoginPendaftaranController::class, 'dashboard'])->name('dashboard');
 });
 
-Route::get('/login', [LoginSiswaController::class, 'showLoginForm'])->name('login.form');
-Route::post('/login', [LoginSiswaController::class, 'login'])->name('login.process');
-Route::get('/logout', [LoginSiswaController::class, 'logout'])->name('logout');
+Route::get('/login', [LoginPendaftaranController::class, 'showLoginForm'])->name('login.form');
+Route::post('/login', [LoginPendaftaranController::class, 'login'])->name('login.submit');
+Route::post('/logout', [LoginPendaftaranController::class, 'logout'])->name('logout');
 
