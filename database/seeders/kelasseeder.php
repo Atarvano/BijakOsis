@@ -2,17 +2,16 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Kelas;
+use Illuminate\Database\Seeder;
 
-class kelasseeder extends Seeder
+class KelasSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
-        Kelas::factory()->count(5)->create();
+        $list = ['X PPLG 1', 'X PPLG 2', 'X TKJ 1', 'X TKJ 2', 'XI PPLG 1', 'XI PPLG 2', 'XI TKJ 1', 'XI TKJ 2', 'XII PPLG 1', 'XII PPLG 2', 'XII TKJ 1', 'XII TKJ 2'];
+        foreach ($list as $nama) {
+            Kelas::firstOrCreate(['nama' => $nama]);
+        }
     }
 }

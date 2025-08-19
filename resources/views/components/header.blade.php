@@ -8,7 +8,7 @@
         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item mb-2 mb-lg-0">
-                    <a class="btn btn-outline-primary me-2" aria-current="page" href="#">Masuk</a>
+                    <a class="btn btn-outline-primary me-2" aria-current="page" href="/login">Masuk</a>
                 </li>
                 <li class="nav-item mb-2 mb-lg-0">
                     <a class="px-3   btn btn-dark text-white btn-outline-info" aria-current="page"

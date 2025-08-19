@@ -24,7 +24,7 @@ class pendaftaran extends Controller
             'nisn' => 'required|string|exists:siswa_sekolah,nisn',
             'no_hp' => 'required|string|max:15',
             'kelas' => 'required|string',
-            'motivasi ' => 'required|string|min:100',
+            'motivasi' => 'required|string|min:100',
         ], [
             'nama.required' => 'Nama wajib diisi.',
             'nisn.exists' => 'NISN tidak ditemukan di sekolah.',
