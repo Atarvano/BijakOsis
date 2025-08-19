@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class pendaftaranosis extends Model
+class PendaftaranOsis extends Model
 {
     use HasFactory;
 
@@ -20,7 +20,6 @@ class pendaftaranosis extends Model
         'status'
     ];
 
-    // Jika ingin relasi ke kelas
     public function kelas()
     {
         return $this->belongsTo(Kelas::class, 'kelas_id');

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\pendaftaranosis;
+use App\Models\PendaftaranOsis;
 use Illuminate\Support\Facades\Hash;
 
 class LoginPendaftaranController extends Controller
@@ -20,7 +20,7 @@ class LoginPendaftaranController extends Controller
             'no_hp' => 'required|numeric',
         ]);
 
-        $user = pendaftaranosis::where('nisn', $request->nisn)
+        $user = PendaftaranOsis::where('nisn', $request->nisn)
             ->where('no_hp', $request->no_hp)
             ->first();
 
@@ -28,7 +28,6 @@ class LoginPendaftaranController extends Controller
             return back()->with('error', 'NISN atau No HP salah.');
         }
 
-        // Simpan session
         $request->session()->put('pendaftaran_id', $user->id);
         $request->session()->put('pendaftaran_nama', $user->nama);
 
@@ -37,7 +36,7 @@ class LoginPendaftaranController extends Controller
 
     public function dashboard()
     {
-        return view('dashboard');
+        return view('dashboardsiswa');
     }
 
     public function logout(Request $request)
