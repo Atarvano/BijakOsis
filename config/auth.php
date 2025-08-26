@@ -40,7 +40,15 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+
+        'guru' => ['driver' => 'session', 'provider' => 'gurus'],
+        'siswa' => ['driver' => 'session', 'provider' => 'pendaftaran'],
     ],
+
+
+
+
+
 
     /*
     |--------------------------------------------------------------------------
@@ -65,10 +73,8 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'gurus' => ['driver' => 'eloquent', 'model' => App\Models\Guru::class],
+        'pendaftaran' => ['driver' => 'eloquent', 'model' => App\Models\PendaftaranOsis::class],
     ],
 
     /*
@@ -97,6 +103,8 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+
+
     ],
 
     /*

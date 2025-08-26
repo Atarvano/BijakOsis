@@ -130,11 +130,16 @@
                         <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown"
                             role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fas fa-user-circle me-1"></i>
-                            Ahmad Rizki
+                            =
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             <li>
-                                <a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i>Logout</a>
+                                <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item">
+                                        <i class="fas fa-sign-out-alt me-2"></i> Logout
+                                    </button>
+                                </form>
                             </li>
                         </ul>
                     </li>
@@ -148,11 +153,13 @@
             <div class="col-12">
                 <div class="bg-white p-4 rounded shadow-sm mb-4">
                     <div class="d-flex align-items-center">
-                        <img src="https://ui-avatars.com/api/?name=Irvanheldyfauzan&background=4a5568&color=fff&size=80"
+                        <img src="https://ui-avatars.com/api/?name={{ Auth::guard('siswa')->user()->nama }}&background=4a5568&color=fff&size=80"
                             alt="Profile" class="profile-img me-3">
                         <div>
-                            <h4 class="mb-1">Welcome back, Ahmad Rizki</h4>
-                            <p class="mb-2 opacity-75">NISN: 0012345678 Class: XII IPA 1</p>
+                            <h4 class="mb-1">Welcome back </h4>
+                            <p class="mb-2 opacity-75">NISN: {{ Auth::guard('siswa')->user()->nisn }} Class:
+                                {{ Auth::guard('siswa')->user()->kelas->nama }}
+                            </p>
                         </div>
                     </div>
                 </div>

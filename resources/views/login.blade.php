@@ -35,21 +35,21 @@
                         </div>
                     @endif
 
-                    <form action="{{ route('login.submit') }}" method="POST">
+                    <form action="{{ route('login') }}" method="POST">
                         @csrf
                         <div class="mb-3">
                             <label for="nisn" class="form-label fw-semibold">
                                 <i class="fas fa-id-card me-2"></i>NISN
                             </label>
-                            <input type="text" name="nisn" class="form-control" id="nisn"
-                                placeholder="Masukkan NISN" required>
+                            <input type="text" name="nisn" class="form-control" id="nisn" placeholder="Masukkan NISN"
+                                required>
                         </div>
                         <div class="mb-3">
                             <label for="no_hp" class="form-label fw-semibold">
                                 <i class="fas fa-phone me-2"></i>No HP
                             </label>
-                            <input type="text" name="no_hp" class="form-control" id="no_hp"
-                                placeholder="Masukkan No HP" required>
+                            <input type="text" name="no_hp" class="form-control" id="no_hp" placeholder="Masukkan No HP"
+                                required>
                         </div>
                         <button type="submit" class="btn btn-dark w-100">
                             <i class="fas fa-sign-in-alt me-2"></i> Login

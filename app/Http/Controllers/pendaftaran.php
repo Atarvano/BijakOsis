@@ -2,22 +2,20 @@
 
 namespace App\Http\Controllers;
 
-
-
 use Illuminate\Http\Request;
-use App\Models\pendaftaranosis;
+use App\Models\PendaftaranOsis;
 use App\Models\Kelas;
 use App\Models\SiswaSekolah;
 
-class pendaftaran extends Controller
+class Pendaftaran extends Controller
 {
     public function index()
     {
         $kelas = Kelas::all();
-        return view('daftar', compact('kelas'), );
+        return view('daftar', compact('kelas'));
     }
 
-    public function store(request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'nama' => 'required|string|max:255',
@@ -33,15 +31,24 @@ class pendaftaran extends Controller
             'motivasi.min' => 'Motivasi minimal 100 karakter.',
         ]);
 
-        $siswa = $siswa = SiswaSekolah::where('nisn', $request->nisn)->first();
+        // Cek apakah NISN sudah pernah mendaftar
+        $existing = PendaftaranOsis::where('nisn', $request->nisn)->first();
+        if ($existing) {
+            return back()->withErrors(['nisn' => 'NISN ini sudah pernah mendaftar.']);
+        }
 
-        pendaftaranosis::create([
+        // Ambil data siswa dari sekolah
+        $siswa = SiswaSekolah::where('nisn', $request->nisn)->first();
+
+        PendaftaranOsis::create([
             'nama' => $siswa->nama,
             'nisn' => $request->nisn,
             'kelas_id' => $request->kelas,
             'no_hp' => $request->no_hp,
             'motivasi' => $request->motivasi,
         ]);
+
         return redirect('/daftar')->with('success', 'Pendaftaran berhasil!');
     }
 }
+

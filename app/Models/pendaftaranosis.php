@@ -4,11 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class PendaftaranOsis extends Model
+class PendaftaranOsis extends Authenticatable
 {
-    use HasFactory;
-
     protected $table = 'pendaftaran_osis';
 
     protected $fillable = [
@@ -19,6 +18,7 @@ class PendaftaranOsis extends Model
         'motivasi',
         'status'
     ];
+
 
     public function kelas()
     {
