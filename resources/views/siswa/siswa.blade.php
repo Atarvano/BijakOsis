@@ -156,7 +156,7 @@
                         <img src="https://ui-avatars.com/api/?name={{ Auth::guard('siswa')->user()->nama }}&background=4a5568&color=fff&size=80"
                             alt="Profile" class="profile-img me-3">
                         <div>
-                            <h4 class="mb-1">Welcome back </h4>
+                            <h4 class="mb-1">Welcome back {{ $nama }} </h4>
                             <p class="mb-2 opacity-75">NISN: {{ Auth::guard('siswa')->user()->nisn }} Class:
                                 {{ Auth::guard('siswa')->user()->kelas->nama }}
                             </p>
