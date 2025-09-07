@@ -32,3 +32,5 @@ Route::middleware('auth:guru')->get('/guru/dashboard', function () {
 Route::middleware('auth:siswa')->group(function () {
     Route::get('/siswa/dashboard', [SiswaController::class, 'index'])->name('siswa.dashboard');
 });
+
+Route::view('/admin/osis-applicants', 'admin/admin');
