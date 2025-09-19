@@ -4,8 +4,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\pendaftaran;
 use App\Http\Controllers\SiswaController;
 use Illuminate\Support\Facades\Route;
-
-
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Guru\DashboardController; 
 use App\Models\PendaftaranOsis;
 
 Route::get('/', function () {
@@ -33,4 +33,20 @@ Route::middleware('auth:siswa')->group(function () {
     Route::get('/siswa/dashboard', [SiswaController::class, 'index'])->name('siswa.dashboard');
 });
 
-Route::view('/admin/osis-applicants', 'admin/admin');
+
+
+Route::prefix('guru')->group(function () {
+
+    // dashboard utama
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+         ->name('guru.dashboard');
+
+    // halaman detail pendaftar
+    Route::get('/pendaftar/{id}', [DashboardController::class, 'show'])
+         ->name('guru.pendaftar.detail');
+
+    // update status (accept / reject)
+    Route::post('/pendaftar/{id}/status', [DashboardController::class, 'updateStatus'])
+         ->name('guru.pendaftar.status');
+
+});
