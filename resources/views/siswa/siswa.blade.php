@@ -153,12 +153,12 @@
             <div class="col-12">
                 <div class="bg-white p-4 rounded shadow-sm mb-4">
                     <div class="d-flex align-items-center">
-                        <img src="https://ui-avatars.com/api/?name={{ Auth::guard('siswa')->user()->nama }}&background=4a5568&color=fff&size=80"
+                        <img src="https://ui-avatars.com/api/?name={{ $user->nama }}&background=4a5568&color=fff&size=80"
                             alt="Profile" class="profile-img me-3">
                         <div>
-                            <h4 class="mb-1">Welcome back {{ $nama }} </h4>
-                            <p class="mb-2 opacity-75">NISN: {{ Auth::guard('siswa')->user()->nisn }} Class:
-                                {{ Auth::guard('siswa')->user()->kelas->nama }}
+                            <h4 class="mb-1">Welcome back {{ $user->nama }} </h4>
+                            <p class="mb-2 opacity-75">NISN: {{ $user->nisn }} Class:
+                                {{ $user->kelas->nama }}
                             </p>
                         </div>
                     </div>
@@ -190,36 +190,94 @@
                 <div class="status-section mb-4">
                     <div class="status-header d-flex justify-content-between align-items-center">
                         <h5 class="status-title mb-0">OSIS Application Status</h5>
-                        <span class="status-badge"><i class="fas fa-clock me-1"></i> Pending Review</span>
+                        @if($user->status == 'pending')
+                            <span class="status-badge" style="background-color: #fff3cd; color: #856404;">
+                                <i class="fas fa-clock me-1"></i> Pending Review
+                            </span>
+                        @elseif($user->status == 'accepted')
+                            <span class="status-badge" style="background-color: #d4edda; color: #155724;">
+                                <i class="fas fa-check-circle me-1"></i> Accepted
+                            </span>
+                        @elseif($user->status == 'rejected')
+                            <span class="status-badge" style="background-color: #f8d7da; color: #721c24;">
+                                <i class="fas fa-times-circle me-1"></i> Rejected
+                            </span>
+                        @endif
                     </div>
                     <div class="status-body">
                         <div class="timeline-item">
                             <div class="timeline-icon completed"><i class="fas fa-check"></i></div>
                             <div class="timeline-content">
                                 <h6>Application Submitted</h6>
-                                <small>Your OSIS application has been successfully submitted on <b>January 15,
-                                        2025</b></small>
+                                <small>Your OSIS application has been successfully submitted on
+                                    <b>{{ $user->created_at->format('F j, Y') }}</b></small>
                             </div>
                         </div>
-                        <div class="timeline-item">
-                            <div class="timeline-icon current"><i class="fas fa-hourglass-half"></i></div>
-                            <div class="timeline-content">
-                                <h6>Under Review</h6>
-                                <small>Your application is currently being reviewed by the selection committee</small>
+
+                        @if($user->status == 'pending')
+                            <div class="timeline-item">
+                                <div class="timeline-icon current"><i class="fas fa-hourglass-half"></i></div>
+                                <div class="timeline-content">
+                                    <h6>Under Review</h6>
+                                    <small>Your application is currently being reviewed by the selection committee</small>
+                                </div>
                             </div>
-                        </div>
-                        <div class="timeline-item">
-                            <div class="timeline-icon pending"><i class="fas fa-bullhorn"></i></div>
-                            <div class="timeline-content">
-                                <h6 class="text-muted">Announcement</h6>
-                                <small class="text-muted">Results will be announced on <b>February 1, 2025</b></small>
+                            <div class="timeline-item">
+                                <div class="timeline-icon pending"><i class="fas fa-bullhorn"></i></div>
+                                <div class="timeline-content">
+                                    <h6 class="text-muted">Awaiting Decision</h6>
+                                    <small class="text-muted">Please wait for the official announcement. Results will be
+                                        available in your dashboard once decided.</small>
+                                </div>
                             </div>
-                        </div>
-                        <div class="mt-4 p-3 rounded bg-light border">
-                            <strong>Announcement Date</strong><br>
-                            <span class="text-muted">Please wait for the official announcement on <b>February 1,
-                                    2025</b>. Results will be available in your dashboard on that date.</span>
-                        </div>
+                            <div class="mt-4 p-3 rounded bg-light border">
+                                <strong>Status: Under Review</strong><br>
+                                <span class="text-muted">Your application is being evaluated by the selection committee.
+                                    Please be patient while we review your submission.</span>
+                            </div>
+                        @elseif($user->status == 'accepted')
+                            <div class="timeline-item">
+                                <div class="timeline-icon completed"><i class="fas fa-check"></i></div>
+                                <div class="timeline-content">
+                                    <h6>Application Reviewed</h6>
+                                    <small>Your application has been thoroughly reviewed by the selection committee</small>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-icon completed"><i class="fas fa-trophy"></i></div>
+                                <div class="timeline-content">
+                                    <h6>Congratulations! You're Accepted</h6>
+                                    <small>You have been accepted to join OSIS. Welcome to the team!</small>
+                                </div>
+                            </div>
+                            <div class="mt-4 p-3 rounded bg-success text-white">
+                                <strong><i class="fas fa-party-horn me-2"></i>Congratulations!</strong><br>
+                                <span>You have been selected to join the OSIS organization. Please wait for further
+                                    instructions regarding orientation and your role assignment.</span>
+                            </div>
+                        @elseif($user->status == 'rejected')
+                            <div class="timeline-item">
+                                <div class="timeline-icon completed"><i class="fas fa-check"></i></div>
+                                <div class="timeline-content">
+                                    <h6>Application Reviewed</h6>
+                                    <small>Your application has been thoroughly reviewed by the selection committee</small>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-icon" style="background-color: #dc3545;"><i class="fas fa-times"></i>
+                                </div>
+                                <div class="timeline-content">
+                                    <h6>Application Not Selected</h6>
+                                    <small>Unfortunately, your application was not selected this time</small>
+                                </div>
+                            </div>
+                            <div class="mt-4 p-3 rounded bg-danger text-white">
+                                <strong><i class="fas fa-info-circle me-2"></i>Application Result</strong><br>
+                                <span>We appreciate your interest in joining OSIS. Although you were not selected this time,
+                                    we encourage you to continue participating in school activities and consider applying
+                                    again next year.</span>
+                            </div>
+                        @endif
                     </div>
                 </div>
             </div>

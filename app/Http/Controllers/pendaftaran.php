@@ -23,21 +23,13 @@ class Pendaftaran extends Controller
             'no_hp' => 'required|string|max:15',
             'kelas' => 'required|string',
             'motivasi' => 'required|string|min:100',
-        ], [
-            'nama.required' => 'Nama wajib diisi.',
-            'nisn.exists' => 'NISN tidak ditemukan di sekolah.',
-            'no_hp.required' => 'Nomor HP wajib diisi.',
-            'no_hp.integer' => 'Nomor HP harus berupa angka.',
-            'motivasi.min' => 'Motivasi minimal 100 karakter.',
         ]);
 
-        // Cek apakah NISN sudah pernah mendaftar
         $existing = PendaftaranOsis::where('nisn', $request->nisn)->first();
         if ($existing) {
             return back()->withErrors(['nisn' => 'NISN ini sudah pernah mendaftar.']);
         }
 
-        // Ambil data siswa dari sekolah
         $siswa = SiswaSekolah::where('nisn', $request->nisn)->first();
 
         PendaftaranOsis::create([
@@ -46,6 +38,7 @@ class Pendaftaran extends Controller
             'kelas_id' => $request->kelas,
             'no_hp' => $request->no_hp,
             'motivasi' => $request->motivasi,
+            'status' => 'pending',
         ]);
 
         return redirect('/daftar')->with('success', 'Pendaftaran berhasil!');

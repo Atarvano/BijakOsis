@@ -19,7 +19,6 @@ class PendaftaranOsis extends Authenticatable
         'status'
     ];
 
-
     public function kelas()
     {
         return $this->belongsTo(Kelas::class, 'kelas_id');
