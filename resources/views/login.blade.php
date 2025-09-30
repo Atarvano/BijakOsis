@@ -70,7 +70,7 @@
                             <label for="field2" class="form-label fw-semibold">
                                 <i class="fas fa-key me-2"></i>No HP / Password
                             </label>
-                            <input type="text" name="field2" class="form-control" id="field2"
+                            <input type="password" name="field2" class="form-control" id="field2"
                                 placeholder="Masukkan No HP (siswa) atau Password (guru)" required>
                         </div>
                         <button type="submit" class="btn btn-primary w-100 py-2">
@@ -78,7 +78,7 @@
                         </button>
                     </form>
 
-                    <!-- Info Login Demo -->
+       
 
                 </div>
             </div>

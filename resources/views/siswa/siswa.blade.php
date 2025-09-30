@@ -99,7 +99,8 @@
                         <div>
                             <h6 class="fw-bold mb-1">Application Submitted</h6>
                             <p class="text-muted mb-0">Your OSIS application has been successfully submitted on
-                                {{ $user->created_at->format('F j, Y') }}</p>
+                                {{ $user->created_at->format('F j, Y') }}
+                            </p>
                         </div>
                     </div>
 
@@ -145,7 +146,7 @@
                 <h4 class="fw-bold">Please Wait for the Announcement</h4>
                 @if($waktuPengumuman)
                     <p class="mb-2">The selection results will be announced on:</p>
-                    <div class="bg-white rounded p-3 d-inline-block">
+                    <div class=" rounded p-3 d-inline-block">
                         <strong
                             class="text-primary fs-5">{{ \Carbon\Carbon::parse($waktuPengumuman)->format('l, F j, Y') }}</strong><br>
                         <strong class="text-dark fs-4">{{ \Carbon\Carbon::parse($waktuPengumuman)->format('H:i') }} WIB</strong>
