@@ -35,7 +35,7 @@ class Pendaftaran extends Controller
         PendaftaranOsis::create([
             'nama' => $siswa->nama,
             'nisn' => $request->nisn,
-            'kelas_id' => $request->kelas,
+            'kelas_id' => $siswa->kelas_id,
             'no_hp' => $request->no_hp,
             'motivasi' => $request->motivasi,
             'status' => 'pending',

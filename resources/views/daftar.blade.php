@@ -42,13 +42,13 @@
                         </div>
                         <div class="mb-3">
                             <label for="nisn" class="form-label">NISN (Nomor Induk Siswa Nasional)</label>
-                            <input type="text" class="form-control" id="nisn" name="nisn"
+                            <input type="number" class="form-control" id="nisn" name="nisn"
                                 placeholder="Masukkan NISN Anda">
                             <small class="text-muted">NISN akan divalidasi dengan database sekolah</small>
                         </div>
                         <div class="mb-3">
                             <label for="no_hp" class="form-label">No HP</label>
-                            <input type="text" class="form-control" id="no_hp" name="no_hp"
+                            <input type="number" class="form-control" id="no_hp" name="no_hp"
                                 placeholder="Masukkan nomor HP Anda">
                         </div>
                         <div class="mb-3">
