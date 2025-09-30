@@ -38,11 +38,27 @@ Route::middleware('auth:guru')->prefix('guru')->group(function () {
         ->name('guru.dashboard');
 
     // halaman detail pendaftar
-    Route::get('/pendaftar/{id}', [DashboardController::class, 'show'])
+    Route::get('/dashboard/pendaftar/{id}', [DashboardController::class, 'show'])
         ->name('guru.pendaftar.detail');
 
     // update status (accept / reject)
-    Route::post('/pendaftar/{id}/status', [DashboardController::class, 'updateStatus'])
+    Route::post('/dashboard/pendaftar/{id}/status', [DashboardController::class, 'updateStatus'])
         ->name('guru.pendaftar.status');
+
+    // filter by minimum grade
+    Route::post('/dashboard/filter-grade', [DashboardController::class, 'filterByGrade'])
+        ->name('guru.filter.grade');
+
+    // delete all pendaftar
+    Route::delete('/dashboard/delete-all', [DashboardController::class, 'deleteAll'])
+        ->name('guru.delete.all');
+
+    // set waktu pengumuman
+    Route::post('/dashboard/set-waktu-pengumuman', [DashboardController::class, 'setWaktuPengumuman'])
+        ->name('guru.set.waktu.pengumuman');
+
+    // logout
+    Route::post('/logout', [DashboardController::class, 'logout'])
+        ->name('guru.logout');
 
 });
