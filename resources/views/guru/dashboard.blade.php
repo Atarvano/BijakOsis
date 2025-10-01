@@ -220,10 +220,11 @@
                                     $rata_rata = ($nilai->b_indo + $nilai->b_inggris + $nilai->sejarah + $nilai->pelajaran_jurusan + $nilai->mtk) / 5;
                                     $rata_rata = round($rata_rata, 1);
                                 }
-                                
-                                
+
+                                // Cari data eskul
                                 $eskul = $siswa ? \App\Models\EskulSiswa::where('siswa_id', $siswa->id)->first() : null;
                                 
+                              
                                 
                                 $attendance = $siswa ? \App\Models\Attendance::where('siswa_id', $siswa->id)->first() : null;
                             @endphp
@@ -273,7 +274,7 @@
                                         <span class="text-muted">-</span>
                                     @endif
                                 </td>
-                                <td class="text-muted border-0">0</td>
+                                <td class="text-muted border-0">{{ $siswa ? $siswa->sp_points : 0 }}</td>
                                 <td class="text-muted border-0">
                                     @if($eskul)
                                         {{ $eskul->nama_eskul1 }}
