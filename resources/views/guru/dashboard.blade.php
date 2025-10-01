@@ -117,7 +117,7 @@
             </div>
         </div>
 
-        <!-- Pengaturan Waktu Pengumuman -->
+
         <div class="row mb-4">
             <div class="col-12">
                 <div class="card border-0 shadow-sm">
@@ -137,10 +137,11 @@
                                         <div>
                                             <div class="fw-bold text-dark">Pengumuman Dijadwalkan</div>
                                             <div class="text-muted small">
-                                                {{ \Carbon\Carbon::parse($waktuPengumuman)->format('d F Y, H:i') }} WIB
+                                                {{ \Carbon\Carbon::parse($waktuPengumuman)->setTimezone('Asia/Jakarta')->format('d F Y, H:i') }}
+                                                WIB
                                             </div>
                                             <div class="text-muted small">
-                                                @if(\Carbon\Carbon::parse($waktuPengumuman)->isPast())
+                                                @if(\Carbon\Carbon::parse($waktuPengumuman)->setTimezone('Asia/Jakarta')->isPast())
                                                     <span class="badge bg-success">Sudah Diumumkan</span>
                                                 @else
                                                     <span class="badge bg-warning">Menunggu Waktu Pengumuman</span>
@@ -208,15 +209,23 @@
                     <tbody>
                         @forelse($pendaftar as $p)
                             @php
-                                $siswaDb = \App\Models\SiswaSekolah::where('nisn', $p->nisn)->first();
-                                $kelas = $siswaDb ? \App\Models\Kelas::find($siswaDb->kelas_id) : null;
-                                $nilai = $siswaDb ? \App\Models\NilaiSiswa::where('siswa_id', $siswaDb->id)->first() : null;
-                                $eskul = $siswaDb ? \App\Models\EskulSiswa::where('siswa_id', $siswaDb->id)->first() : null;
-                                $avg = 0;
+                                
+                                $siswa = \App\Models\SiswaSekolah::where('nisn', $p->nisn)->first();
+                                $kelas = $siswa ? \App\Models\Kelas::find($siswa->kelas_id) : null;
+                                
+                  
+                                $rata_rata = 0;
+                                $nilai = $siswa ? \App\Models\NilaiSiswa::where('siswa_id', $siswa->id)->first() : null;
                                 if ($nilai) {
-                                    $avg = round(($nilai->b_indo + $nilai->b_inggris + $nilai->sejarah +
-                                        $nilai->pelajaran_jurusan + $nilai->mtk) / 5, 1);
+                                    $rata_rata = ($nilai->b_indo + $nilai->b_inggris + $nilai->sejarah + $nilai->pelajaran_jurusan + $nilai->mtk) / 5;
+                                    $rata_rata = round($rata_rata, 1);
                                 }
+                                
+                                
+                                $eskul = $siswa ? \App\Models\EskulSiswa::where('siswa_id', $siswa->id)->first() : null;
+                                
+                                
+                                $attendance = $siswa ? \App\Models\Attendance::where('siswa_id', $siswa->id)->first() : null;
                             @endphp
                             <tr>
                                 <td class="border-0">
@@ -230,27 +239,50 @@
                                     </div>
                                 </td>
                                 <td class="text-muted border-0">{{ $p->nisn }}</td>
-                                <td class="text-muted border-0">{{ optional($kelas)->nama ?? '-' }}</td>
+                                <td class="text-muted border-0">{{ $kelas ? $kelas->nama : '-' }}</td>
                                 <td class="border-0">
-                                    @if($avg > 0)
-                                        @if($avg >= 85)
-                                            <span class="badge bg-success">{{ $avg }}</span>
-                                        @elseif($avg >= 75)
-                                            <span class="badge bg-primary">{{ $avg }}</span>
-                                        @elseif($avg >= 65)
-                                            <span class="badge bg-warning">{{ $avg }}</span>
+                                    @if($rata_rata > 0)
+                                        @if($rata_rata >= 85)
+                                            <span class="badge bg-success">{{ $rata_rata }}</span>
+                                        @elseif($rata_rata >= 75)
+                                            <span class="badge bg-primary">{{ $rata_rata }}</span>
+                                        @elseif($rata_rata >= 65)
+                                            <span class="badge bg-warning">{{ $rata_rata }}</span>
                                         @else
-                                            <span class="badge bg-danger">{{ $avg }}</span>
+                                            <span class="badge bg-danger">{{ $rata_rata }}</span>
                                         @endif
                                     @else
                                         <span class="text-muted">-</span>
                                     @endif
                                 </td>
-                                <td class="text-muted border-0">95%</td>
+                                <td class="text-muted border-0">
+                                    @if($attendance)
+                                        @php 
+                                            $persentase_kehadiran = $attendance->persentase_kehadiran; 
+                                        @endphp
+                                        @if($persentase_kehadiran >= 95)
+                                            <span class="badge bg-success">{{ number_format($persentase_kehadiran, 1) }}%</span>
+                                        @elseif($persentase_kehadiran >= 85)
+                                            <span class="badge bg-primary">{{ number_format($persentase_kehadiran, 1) }}%</span>
+                                        @elseif($persentase_kehadiran >= 75)
+                                            <span class="badge bg-warning">{{ number_format($persentase_kehadiran, 1) }}%</span>
+                                        @else
+                                            <span class="badge bg-danger">{{ number_format($persentase_kehadiran, 1) }}%</span>
+                                        @endif
+                                    @else
+                                        <span class="text-muted">-</span>
+                                    @endif
+                                </td>
                                 <td class="text-muted border-0">0</td>
                                 <td class="text-muted border-0">
-                                    {{ optional($eskul)->nama_eskul1 ?? 'Pramuka, PMR' }}
-                                    {{ ($eskul && $eskul->nama_eskul2) ? ', ' . $eskul->nama_eskul2 : '' }}
+                                    @if($eskul)
+                                        {{ $eskul->nama_eskul1 }}
+                                        @if($eskul->nama_eskul2)
+                                            , {{ $eskul->nama_eskul2 }}
+                                        @endif
+                                    @else
+                                        <span class="text-muted">-</span>
+                                    @endif
                                 </td>
                                 <td class="border-0">
                                     @if($p->status == 'accepted')
@@ -443,6 +475,62 @@
     </div>
 
 
+    
+
+    <!-- Modal Waktu Pengumuman -->
+    <div class="modal fade" id="waktuPengumumanModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="{{ route('guru.set.waktu.pengumuman') }}" method="POST">
+                    @csrf
+                    <div class="modal-header bg-warning bg-opacity-10">
+                        <h5 class="modal-title fw-bold">
+                            <i class="bi bi-megaphone me-2"></i>Atur Waktu Pengumuman
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle me-2"></i>
+                            <strong>Info:</strong> Setelah waktu yang ditentukan, siswa akan dapat melihat hasil seleksi
+                            di dashboard mereka.
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="tanggal_pengumuman" class="form-label fw-bold">Tanggal Pengumuman</label>
+                            <input type="date" class="form-control" id="tanggal_pengumuman" name="tanggal_pengumuman"
+                                value="{{ $waktuPengumuman ? \Carbon\Carbon::parse($waktuPengumuman)->setTimezone('Asia/Jakarta')->format('Y-m-d') : '' }}"
+                                min="{{ date('Y-m-d') }}" required>
+                            <div class="form-text">Pilih tanggal minimal hari ini</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="jam_pengumuman" class="form-label fw-bold">Jam Pengumuman</label>
+                            <input type="time" class="form-control" id="jam_pengumuman" name="jam_pengumuman"
+                                value="{{ $waktuPengumuman ? \Carbon\Carbon::parse($waktuPengumuman)->setTimezone('Asia/Jakarta')->format('H:i') : '09:00' }}"
+                                required>
+                        </div>
+
+                        @if($waktuPengumuman)
+                            <div class="alert alert-warning">
+                                <i class="bi bi-exclamation-triangle me-2"></i>
+                                <strong>Waktu Saat Ini:</strong>
+                                {{ \Carbon\Carbon::parse($waktuPengumuman)->setTimezone('Asia/Jakarta')->format('d F Y, H:i') }}
+                                WIB
+                            </div>
+                        @endif
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-warning">
+                            <i class="bi bi-check-lg me-1"></i>{{ $waktuPengumuman ? 'Update' : 'Atur' }} Waktu
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <script>
         function confirmFilter() {
             const minGrade = document.getElementById('minimum_grade').value;
@@ -482,59 +570,6 @@
             });
         }, 5000);
     </script>
-
-    <!-- Modal Waktu Pengumuman -->
-    <div class="modal fade" id="waktuPengumumanModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form action="{{ route('guru.set.waktu.pengumuman') }}" method="POST">
-                    @csrf
-                    <div class="modal-header bg-warning bg-opacity-10">
-                        <h5 class="modal-title fw-bold">
-                            <i class="bi bi-megaphone me-2"></i>Atur Waktu Pengumuman
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="alert alert-info">
-                            <i class="bi bi-info-circle me-2"></i>
-                            <strong>Info:</strong> Setelah waktu yang ditentukan, siswa akan dapat melihat hasil seleksi
-                            di dashboard mereka.
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="tanggal_pengumuman" class="form-label fw-bold">Tanggal Pengumuman</label>
-                            <input type="date" class="form-control" id="tanggal_pengumuman" name="tanggal_pengumuman"
-                                value="{{ $waktuPengumuman ? \Carbon\Carbon::parse($waktuPengumuman)->format('Y-m-d') : '' }}"
-                                min="{{ date('Y-m-d') }}" required>
-                            <div class="form-text">Pilih tanggal minimal hari ini</div>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="jam_pengumuman" class="form-label fw-bold">Jam Pengumuman</label>
-                            <input type="time" class="form-control" id="jam_pengumuman" name="jam_pengumuman"
-                                value="{{ $waktuPengumuman ? \Carbon\Carbon::parse($waktuPengumuman)->format('H:i') : '09:00' }}"
-                                required>
-                        </div>
-
-                        @if($waktuPengumuman)
-                            <div class="alert alert-warning">
-                                <i class="bi bi-exclamation-triangle me-2"></i>
-                                <strong>Waktu Saat Ini:</strong>
-                                {{ \Carbon\Carbon::parse($waktuPengumuman)->format('d F Y, H:i') }} WIB
-                            </div>
-                        @endif
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        <button type="submit" class="btn btn-warning">
-                            <i class="bi bi-check-lg me-1"></i>{{ $waktuPengumuman ? 'Update' : 'Atur' }} Waktu
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
 </body>
 
 </html>

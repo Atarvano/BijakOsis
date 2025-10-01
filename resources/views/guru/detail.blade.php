@@ -215,34 +215,84 @@
                         <h5 class="fw-bold mb-0">Attendance & Behavior</h5>
                     </div>
                     <div class="card-body">
-                        <div class="row text-center">
-                            <div class="col-md-4">
-                                <div class="p-3">
-                                    <i class="bi bi-calendar-check display-6 text-primary mb-2"></i>
-                                    <h5 class="fw-bold">95%</h5>
-                                    <p class="text-muted mb-0">Attendance Rate</p>
-                                    <small class="text-muted">180/190 days</small>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="p-3">
-                                    <div class="bg-warning bg-opacity-10 rounded p-3 d-inline-block mb-2">
-                                        <i class="bi bi-exclamation-triangle display-6 text-warning"></i>
+                        @if($siswa && ($siswa->currentAttendance || $siswa->attendance->first()))
+                            @php
+                                $attendance = $siswa->currentAttendance ?? $siswa->attendance->first();
+                                $persentase = $attendance->persentase_kehadiran;
+                                $kategori = $attendance->kategori_kehadiran;
+                            @endphp
+                            <div class="row text-center">
+                                <div class="col-md-4">
+                                    <div class="p-3">
+                                        <i class="bi bi-calendar-check display-6 text-primary mb-2"></i>
+                                        <h5 class="fw-bold">{{ number_format($persentase, 1) }}%</h5>
+                                        <p class="text-muted mb-0">Attendance Rate</p>
+                                        <small
+                                            class="text-muted">{{ $attendance->total_hadir }}/{{ $attendance->total_hari_efektif }}
+                                            days</small>
+                                        <div class="mt-1">
+                                            @if($persentase >= 95)
+                                                <span class="badge bg-success">{{ $kategori }}</span>
+                                            @elseif($persentase >= 85)
+                                                <span class="badge bg-primary">{{ $kategori }}</span>
+                                            @elseif($persentase >= 75)
+                                                <span class="badge bg-warning">{{ $kategori }}</span>
+                                            @else
+                                                <span class="badge bg-danger">{{ $kategori }}</span>
+                                            @endif
+                                        </div>
                                     </div>
-                                    <h5 class="fw-bold">0</h5>
-                                    <p class="text-muted mb-0">SP Points</p>
-                                    <small class="text-muted">No violations</small>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="p-3">
+                                        <div class="bg-warning bg-opacity-10 rounded p-3 d-inline-block mb-2">
+                                            <i class="bi bi-exclamation-triangle display-6 text-warning"></i>
+                                        </div>
+                                        <h5 class="fw-bold">{{ $attendance->total_alpha }}</h5>
+                                        <p class="text-muted mb-0">Alpha Days</p>
+                                        <small class="text-muted">{{ $attendance->total_izin }} izin,
+                                            {{ $attendance->total_sakit }} sakit</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="p-3">
+                                        <i class="bi bi-star-fill display-6 text-warning mb-2"></i>
+                                        <h5 class="fw-bold">5</h5>
+                                        <p class="text-muted mb-0">Achievement</p>
+                                        <small class="text-muted">Awards received</small>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
-                                <div class="p-3">
-                                    <i class="bi bi-star-fill display-6 text-warning mb-2"></i>
-                                    <h5 class="fw-bold">5</h5>
-                                    <p class="text-muted mb-0">Achievement</p>
-                                    <small class="text-muted">Awards received</small>
+                        @else
+                            <div class="row text-center">
+                                <div class="col-md-4">
+                                    <div class="p-3">
+                                        <i class="bi bi-calendar-check display-6 text-primary mb-2"></i>
+                                        <h5 class="fw-bold">-</h5>
+                                        <p class="text-muted mb-0">Attendance Rate</p>
+                                        <small class="text-muted">Data not available</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="p-3">
+                                        <div class="bg-warning bg-opacity-10 rounded p-3 d-inline-block mb-2">
+                                            <i class="bi bi-exclamation-triangle display-6 text-warning"></i>
+                                        </div>
+                                        <h5 class="fw-bold">-</h5>
+                                        <p class="text-muted mb-0">Alpha Days</p>
+                                        <small class="text-muted">Data not available</small>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="p-3">
+                                        <i class="bi bi-star-fill display-6 text-warning mb-2"></i>
+                                        <h5 class="fw-bold">5</h5>
+                                        <p class="text-muted mb-0">Achievement</p>
+                                        <small class="text-muted">Awards received</small>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                     </div>
                 </div>
 
@@ -253,20 +303,22 @@
                     <div class="card-body">
                         @if($eskul)
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="d-flex align-items-center p-3 border rounded mb-3">
-                                        <div class="bg-primary bg-opacity-10 rounded p-3 me-3">
-                                            <i class="bi bi-people fs-4 text-primary"></i>
-                                        </div>
-                                        <div>
-                                            <h6 class="fw-bold mb-0">{{ $eskul->nama_eskul1 ?? 'Pramuka' }}</h6>
-                                            <small class="text-muted">Member since 2023</small>
-                                            <div class="mt-1">
-                                                <span class="badge bg-success">Active</span>
+                                @if($eskul->nama_eskul1)
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center p-3 border rounded mb-3">
+                                            <div class="bg-primary bg-opacity-10 rounded p-3 me-3">
+                                                <i class="bi bi-people fs-4 text-primary"></i>
+                                            </div>
+                                            <div>
+                                                <h6 class="fw-bold mb-0">{{ $eskul->nama_eskul1 }}</h6>
+                                                <small class="text-muted">Primary Activity</small>
+                                                <div class="mt-1">
+                                                    <span class="badge bg-success">Active</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
 
                                 @if($eskul->nama_eskul2)
                                     <div class="col-md-6">
@@ -276,24 +328,26 @@
                                             </div>
                                             <div>
                                                 <h6 class="fw-bold mb-0">{{ $eskul->nama_eskul2 }}</h6>
-                                                <small class="text-muted">Member since 2024</small>
+                                                <small class="text-muted">Secondary Activity</small>
                                                 <div class="mt-1">
                                                     <span class="badge bg-success">Active</span>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                @else
+                                @endif
+
+                                @if(!$eskul->nama_eskul2)
                                     <div class="col-md-6">
-                                        <div class="d-flex align-items-center p-3 border rounded mb-3">
-                                            <div class="bg-danger bg-opacity-10 rounded p-3 me-3">
-                                                <i class="bi bi-heart-pulse fs-4 text-danger"></i>
+                                        <div class="d-flex align-items-center p-3 border rounded mb-3 bg-light">
+                                            <div class="bg-secondary bg-opacity-10 rounded p-3 me-3">
+                                                <i class="bi bi-plus-circle fs-4 text-secondary"></i>
                                             </div>
                                             <div>
-                                                <h6 class="fw-bold mb-0">PMR (Palang Merah Remaja)</h6>
-                                                <small class="text-muted">Member since 2024</small>
+                                                <h6 class="fw-bold mb-0 text-muted">Available Slot</h6>
+                                                <small class="text-muted">Can join one more activity</small>
                                                 <div class="mt-1">
-                                                    <span class="badge bg-success">Active</span>
+                                                    <span class="badge bg-secondary">Open</span>
                                                 </div>
                                             </div>
                                         </div>

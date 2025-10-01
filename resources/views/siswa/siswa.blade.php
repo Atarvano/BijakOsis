@@ -131,7 +131,7 @@
                             <p class="text-muted mb-0">
                                 @if($waktuPengumuman)
                                     Results will be announced on
-                                    {{ \Carbon\Carbon::parse($waktuPengumuman)->format('F j, Y \a\t H:i') }}
+                                    {{ \Carbon\Carbon::parse($waktuPengumuman)->setTimezone('Asia/Jakarta')->format('F j, Y \a\t H:i') }} WIB
                                 @else
                                     Results will be announced soon. Please stay tuned!
                                 @endif
@@ -148,8 +148,8 @@
                     <p class="mb-2">The selection results will be announced on:</p>
                     <div class=" rounded p-3 d-inline-block">
                         <strong
-                            class="text-primary fs-5">{{ \Carbon\Carbon::parse($waktuPengumuman)->format('l, F j, Y') }}</strong><br>
-                        <strong class="text-dark fs-4">{{ \Carbon\Carbon::parse($waktuPengumuman)->format('H:i') }} WIB</strong>
+                            class="text-primary fs-5">{{ \Carbon\Carbon::parse($waktuPengumuman)->setTimezone('Asia/Jakarta')->format('l, F j, Y') }}</strong><br>
+                        <strong class="text-dark fs-4">{{ \Carbon\Carbon::parse($waktuPengumuman)->setTimezone('Asia/Jakarta')->format('H:i') }} WIB</strong>
                     </div>
                     <p class="mt-3 mb-0">Please check back after the scheduled time to see your results.</p>
                 @else
