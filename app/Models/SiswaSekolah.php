@@ -18,6 +18,7 @@ class SiswaSekolah extends Model
         'nilai_siswa',
         'eskul_id',
         'attendance_id',
+        'sp_points',
     ];
 
     public function kelas()
