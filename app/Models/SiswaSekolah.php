@@ -16,6 +16,8 @@ class SiswaSekolah extends Model
         'nama',
         'kelas_id',
         'nilai_siswa',
+        'eskul_id',
+        'attendance_id',
     ];
 
     public function kelas()
@@ -31,5 +33,15 @@ class SiswaSekolah extends Model
     public function eskul()
     {
         return $this->hasOne(EskulSiswa::class, 'siswa_id');
+    }
+
+    public function attendance()
+    {
+        return $this->hasMany(Attendance::class, 'siswa_id');
+    }
+
+    public function currentAttendance()
+    {
+        return $this->belongsTo(Attendance::class, 'attendance_id');
     }
 }

@@ -8,6 +8,7 @@ use App\Models\PendaftaranOsis;
 use App\Models\SiswaSekolah;
 use App\Models\NilaiSiswa;
 use App\Models\EskulSiswa;
+use App\Models\Attendance;
 use App\Models\Pengaturan;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,6 +35,9 @@ class DashboardController extends Controller
         if ($siswa) {
             $nilai = NilaiSiswa::where('siswa_id', $siswa->id)->first();
             $eskul = EskulSiswa::where('siswa_id', $siswa->id)->first();
+
+
+            $siswa->load(['attendance', 'currentAttendance']);
         }
 
         return view('guru.detail', compact('pendaftar', 'siswa', 'nilai', 'eskul'));
@@ -108,6 +112,6 @@ class DashboardController extends Controller
         Pengaturan::setWaktuPengumuman($datetime);
 
         return redirect()->back()->with('success', 'Waktu pengumuman berhasil diatur untuk ' .
-            \Carbon\Carbon::parse($datetime)->format('d F Y, H:i'));
+            \Carbon\Carbon::createFromFormat('Y-m-d H:i', $datetime, 'Asia/Jakarta')->format('d F Y, H:i') . ' WIB');
     }
 }

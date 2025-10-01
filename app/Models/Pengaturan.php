@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Pengaturan extends Model
 {
@@ -34,7 +35,9 @@ class Pengaturan extends Model
             $pengaturan = new self();
         }
 
-        $pengaturan->waktu_pengumuman = $datetime;
+        // Parse datetime dengan timezone Indonesia
+        $carbonDate = Carbon::createFromFormat('Y-m-d H:i', $datetime, 'Asia/Jakarta');
+        $pengaturan->waktu_pengumuman = $carbonDate;
         $pengaturan->save();
 
         return $pengaturan;
@@ -43,6 +46,13 @@ class Pengaturan extends Model
     public static function isPengumumanReady()
     {
         $waktu = self::getWaktuPengumuman();
-        return $waktu ? now()->gte($waktu) : true;
+        if (!$waktu)
+            return true;
+
+        // Bandingkan dengan waktu sekarang dalam timezone Asia/Jakarta
+        $sekarang = now('Asia/Jakarta');
+        $waktuPengumuman = Carbon::parse($waktu)->setTimezone('Asia/Jakarta');
+
+        return $sekarang->gte($waktuPengumuman);
     }
 }
