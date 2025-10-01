@@ -1,61 +1,183 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Logo Laravel"></a></p>
+# BijakOSIS - Sistem Pendaftaran OSIS
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Status Build"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Unduhan"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Versi Stabil Terbaru"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="Lisensi"></a>
-</p>
+Aplikasi web untuk mengelola pendaftaran dan seleksi siswa OSIS berbasis Laravel dengan database SQLite.
 
-## Memulai
+## 🚀 Setup Development
 
-Setelah melakukan `git clone`, install Laravel dan Bootstrap terlebih dahulu karena repository ini hanya berisi file penting saja.
+### Instalasi Pertama Kali
 
 ```bash
+# Clone repository
+git clone https://github.com/username/BijakOsis.git
+cd BijakOsis
+
+# Install dependencies
 composer install
 npm install
-npm install bootstrap
-npm run dev
-```
 
-Jangan lupa salin file `.env.example` menjadi `.env` dan generate key:
-
-```bash
+# Setup environment
 cp .env.example .env
 php artisan key:generate
+
+# Edit .env untuk database SQLite
+DB_CONNECTION=sqlite
+DB_DATABASE=database/database.sqlite
 ```
 
-## Tentang Laravel
+### Setup Database
 
-Laravel adalah framework aplikasi web dengan sintaks yang ekspresif dan elegan. Kami percaya pengembangan harus menjadi pengalaman yang menyenangkan dan kreatif agar benar-benar memuaskan. Laravel memudahkan pengembangan dengan menyederhanakan tugas-tugas umum yang sering digunakan dalam banyak proyek web, seperti:
+```bash
+# Buat file database SQLite
+touch database/database.sqlite
+# Atau di Windows:
+type nul > database/database.sqlite
 
--   [Mesin routing yang sederhana dan cepat](https://laravel.com/docs/routing).
--   [Container dependency injection yang kuat](https://laravel.com/docs/container).
--   Banyak backend untuk penyimpanan [session](https://laravel.com/docs/session) dan [cache](https://laravel.com/docs/cache).
--   [ORM database](https://laravel.com/docs/eloquent) yang ekspresif dan intuitif.
--   [Migrasi skema](https://laravel.com/docs/migrations) yang agnostik database.
--   [Pemrosesan job latar belakang yang tangguh](https://laravel.com/docs/queues).
--   [Broadcasting event real-time](https://laravel.com/docs/broadcasting).
+# Setup fresh database dengan semua data
+php artisan migrate:fresh --force
+php artisan db:seed --class=ProductionDataSeeder
+```
 
-Laravel mudah diakses, kuat, dan menyediakan alat yang dibutuhkan untuk aplikasi besar dan robust.
+### Jalankan Development Server
 
-## Belajar Laravel
+```bash
+npm run dev
+php artisan serve
+```
 
--   **[Redberry](https://redberry.international/laravel-development)**
--   **[Active Logic](https://activelogic.com)**
+## 📦 Setup untuk Deployment/Laptop Teman
 
-## Kontribusi
+### Setup Lengkap (Fresh Install)
 
-Terima kasih telah mempertimbangkan untuk berkontribusi pada framework Laravel! Panduan kontribusi dapat ditemukan di [dokumentasi Laravel](https://laravel.com/docs/contributions).
+```bash
+# 1. Clone dan install dependencies
+git clone https://github.com/username/BijakOsis.git
+cd BijakOsis
+composer install
 
-## Kode Etik
+# 2. Setup environment
+cp .env.example .env
+php artisan key:generate
 
-Agar komunitas Laravel tetap ramah untuk semua, silakan tinjau dan patuhi [Kode Etik](https://laravel.com/docs/contributions#code-of-conduct).
+# 3. Buat database SQLite
+touch database/database.sqlite  # Linux/Mac
+# atau
+type nul > database/database.sqlite  # Windows
 
-## Kerentanan Keamanan
+# 4. Setup database dengan data lengkap
+php artisan migrate:fresh --force
+php artisan db:seed --class=ProductionDataSeeder
 
-Jika Anda menemukan kerentanan keamanan di Laravel, silakan kirim email ke Taylor Otwell melalui [taylor@laravel.com](mailto:taylor@laravel.com). Semua kerentanan keamanan akan segera ditangani.
+# 5. Setup storage dan cache
+php artisan storage:link
+php artisan config:clear
+php artisan cache:clear
 
-## Lisensi
+# 6. Jalankan server
+php artisan serve
+```
 
-Framework Laravel adalah perangkat lunak open-source yang dilisensikan di bawah [lisensi MIT](https://opensource.org/licenses/MIT).
+### Login Default
+
+**Email**: `admin@sekolah.com`
+**Password**: `admin123`
+
+## 🛠️ Troubleshooting
+
+### Error "table sessions already exists"
+
+**Error lengkap:**
+
+```
+SQLSTATE[HY000]: General error: 1 table "sessions" already exists
+(Connection: sqlite, SQL: create table "sessions" ...)
+```
+
+**Penyebab:** Migration sessions sudah pernah dijalankan sebelumnya, tapi Laravel coba buat lagi.
+
+**Solusi:**
+
+````bash
+# Option 1: Reset total database (RECOMMENDED)
+php artisan migrate:fresh --force
+php artisan db:seed --class=ProductionDataSeeder
+
+# Option 2: Hapus table sessions dulu
+php artisan tinker
+Schema::dropIfExists('sessions');
+exit
+php artisan migrate
+
+# Option 3: Skip migration sessions yang error
+php artisan migrate --path=database/migrations/2025_10_01_221218_add_sp_points_to_siswa_sekolah_table.php
+`
+
+### Untuk Teman yang Sudah Punya Data Siswa
+
+Kalau sudah ada data siswa tapi butuh kolom baru (sp_points, eskul, attendance):
+
+```bash
+# 1. Jalankan migration untuk kolom baru saja
+php artisan migrate
+
+# 2. Update kolom baru tanpa hapus data siswa existing
+php artisan db:seed --class=UpdateKolomBaruSeeder
+````
+
+``
+
+### Update Data Saja (Tanpa Reset)
+
+````bash
+
+```bash
+# Update SP Points saja
+php artisan db:seed --class=SpPointsSeeder
+
+# Update Eskul dan Attendance saja
+php artisan db:seed --class=EskulSiswaSeeder
+````
+
+`
+
+### Clear All Cache
+
+````bash
+
+## 📊 Data yang Dihasilkan
+
+ProductionDataSeeder akan membuat:
+
+- **12 Kelas**: X IPA/IPS, XI IPA/IPS, XII IPA/IPS
+- **100 Siswa**: Dengan NISN dan nama random
+- **100 Nilai**: 5 mata pelajaran per siswa
+- **100 Eskul**: 1-2 ekstrakurikuler per siswa
+- **100 Attendance**: Data kehadiran dengan persentase
+- **SP Points**: 60% siswa = 0 point, 20% = 300, 15% = 600, 5% = 900
+- **1 User Guru**: admin@sekolah.com
+
+## 🏗️ Struktur Database
+
+```text
+├── kelas (12 kelas)
+├── siswa_sekolah (100 siswa + sp_points)
+├── nilai_siswa (100 record nilai)
+├── eskul_siswa (100 record eskul)
+├── attendance (100 record kehadiran)
+├── users_guru (1 admin)
+└── pendaftaran_osis (data pendaftar)
+````
+
+## 🎯 Fitur Utama
+
+-   Dashboard guru dengan data siswa lengkap
+-   Sistem penilaian dengan badge warna
+-   Data kehadiran dengan persentase otomatis
+-   Manajemen ekstrakurikuler
+-   Filter dan sorting siswa
+-   Export data pendaftar
+
+---
+
+---
+
+``
