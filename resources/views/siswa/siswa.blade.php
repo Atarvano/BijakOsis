@@ -237,7 +237,7 @@
                         </div>
                     </div>
 
-                    <!-- Timeline Item 2 -->
+                    
                     <div class="d-flex align-items-start mb-4">
                         <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center me-3"
                             style="width: 40px; height: 40px;">
