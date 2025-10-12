@@ -1,0 +1,12 @@
+tests/
+.git/
+.github/
+.vscode/
+.idea/
+*.md
+!DEPLOY_RAILWAY.md
+.env.example
+.editorconfig
+.gitignore
+.gitattributes
+phpunit.xml
