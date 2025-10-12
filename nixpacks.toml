@@ -6,9 +6,7 @@ cmds = [
     'mkdir -p database',
     'touch database/database.sqlite',
     'chmod 664 database/database.sqlite',
-    'composer install --no-dev --optimize-autoloader',
-    'npm install',
-    'npm run build'
+    'composer install --no-dev --optimize-autoloader'
 ]
 
 [phases.build]
