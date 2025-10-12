@@ -9,6 +9,10 @@ use App\Http\Controllers\Guru\DashboardController;
 use App\Models\PendaftaranOsis;
 
 Route::get('/', function () {
+    return 'Laravel is working! APP_KEY: ' . (config('app.key') ? 'SET' : 'NOT SET');
+});
+
+Route::get('/home', function () {
     return view('home');
 });
 
