@@ -1,1 +1,2 @@
-*.sqlite*
+# Allow database.sqlite for production deployment
+# *.sqlite*
